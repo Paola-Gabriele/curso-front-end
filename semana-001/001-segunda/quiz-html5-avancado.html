@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="../../assets/favicon.png" type="image/x-icon" />
+  <title>Quiz Interativo – HTML e HTML5</title> 
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #fff);
+      color: #333;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #0077cc;
+      text-align: center;
+    }
+
+    .quiz-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .question {
+      margin-bottom: 1.5rem;
+    }
+
+    .question p {
+      font-weight: bold;
+    }
+
+    label {
+      display: block;
+      margin-top: 0.3rem;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    .feedback {
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    .correct {
+      color: green;
+    }
+
+    .incorrect {
+      color: red;
+    }
+
+    button {
+      background-color: #0077cc;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin: 2rem auto 0;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .result {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 2rem;
+    }
+
+    .result.good {
+      color: green;
+    }
+
+    .result.medium {
+      color: #e69100;
+    }
+
+    .result.bad {
+      color: red;
+    }
+
+    .score-history {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>Quiz: HTML e HTML5</h1>
+    <form id="quizForm">
+      <!-- Pergunta 1 -->
+      <div class="question">
+        <p>1. O que significa a sigla HTML?</p>
+        <label><input type="radio" name="q1" value="A" /> A) Hyper Text Markdown Language</label>
+        <label><input type="radio" name="q1" value="B" /> B) Hyperlink and Text Markup Language</label>
+        <label><input type="radio" name="q1" value="C" /> C) HyperText Markup Language</label>
+        <label><input type="radio" name="q1" value="D" /> D) HighText Machine Language</label>
+        <div class="feedback" id="f-q1"></div>
+      </div>
+
+      <!-- Pergunta 2 -->
+      <div class="question">
+        <p>2. Qual estrutura representa corretamente um documento HTML5?</p>
+        <label><input type="radio" name="q2" value="A" /> A) &lt;html&gt;&lt;head&gt;&lt;body&gt;&lt;/body&gt;&lt;/head&gt;&lt;/html&gt;</label>
+        <label><input type="radio" name="q2" value="B" /> B) &lt;doctype html&gt; ...</label>
+        <label><input type="radio" name="q2" value="C" /> C) &lt;!DOCTYPE html&gt; ... &lt;/html&gt;</label>
+        <label><input type="radio" name="q2" value="D" /> D) &lt;!HTML&gt; ... &lt;/HTML&gt;</label>
+        <div class="feedback" id="f-q2"></div>
+      </div>
+
+      <!-- Pergunta 3 -->
+      <div class="question">
+        <p>3. Qual dessas tags é usada para menus de navegação?</p>
+        <label><input type="radio" name="q3" value="A" /> A) &lt;section&gt;</label>
+        <label><input type="radio" name="q3" value="B" /> B) &lt;nav&gt;</label>
+        <label><input type="radio" name="q3" value="C" /> C) &lt;aside&gt;</label>
+        <label><input type="radio" name="q3" value="D" /> D) &lt;header&gt;</label>
+        <div class="feedback" id="f-q3"></div>
+      </div>
+
+      <!-- Pergunta 4 -->
+      <div class="question">
+        <p>4. Qual tag HTML5 insere um vídeo?</p>
+        <label><input type="radio" name="q4" value="A" /> A) &lt;media&gt;</label>
+        <label><input type="radio" name="q4" value="B" /> B) &lt;mp4&gt;</label>
+        <label><input type="radio" name="q4" value="C" /> C) &lt;embed&gt;</label>
+        <label><input type="radio" name="q4" value="D" /> D) &lt;video&gt;</label>
+        <div class="feedback" id="f-q4"></div>
+      </div>
+
+      <!-- Pergunta 5 -->
+      <div class="question">
+        <p>5. Quais são elementos semânticos do HTML5?</p>
+        <label><input type="radio" name="q5" value="A" /> A) &lt;div&gt;, &lt;span&gt;, &lt;br&gt;</label>
+        <label><input type="radio" name="q5" value="B" /> B) &lt;header&gt;, &lt;section&gt;, &lt;article&gt;, &lt;footer&gt;</label>
+        <label><input type="radio" name="q5" value="C" /> C) &lt;bold&gt;, &lt;italic&gt;, &lt;underline&gt;</label>
+        <label><input type="radio" name="q5" value="D" /> D) &lt;img&gt;, &lt;audio&gt;, &lt;script&gt;</label>
+        <div class="feedback" id="f-q5"></div>
+      </div>
+
+      <button type="button" onclick="corrigir()">Ver Resultado</button>
+    </form>
+
+    <div class="result" id="resultado"></div>
+    <div class="score-history" id="historicoPontuacao"></div>
+  </div>
+
+  <script>
+    const gabarito = {
+      q1: 'C',
+      q2: 'C',
+      q3: 'B',
+      q4: 'D',
+      q5: 'B'
+    };
+
+    function corrigir() {
+      let acertos = 0;
+
+      for (let q in gabarito) {
+        const selecionada = document.querySelector(`input[name="${q}"]:checked`);
+        const feedback = document.getElementById(`f-${q}`);
+        if (selecionada) {
+          if (selecionada.value === gabarito[q]) {
+            feedback.textContent = "✔ Resposta correta!";
+            feedback.className = "feedback correct";
+            acertos++;
+          } else {
+            feedback.textContent = "✘ Resposta incorreta.";
+            feedback.className = "feedback incorrect";
+          }
+        } else {
+          feedback.textContent = "✘ Você não respondeu essa pergunta.";
+          feedback.className = "feedback incorrect";
+        }
+      }
+
+      mostrarResultado(acertos);
+      salvarPontuacao(acertos);
+    }
+
+    function mostrarResultado(acertos) {
+      const resultado = document.getElementById("resultado");
+      let mensagem = "";
+      let classe = "";
+
+      if (acertos === 5) {
+        mensagem = "🎉 Parabéns! Você gabaritou!";
+        classe = "good";
+      } else if (acertos >= 3) {
+        mensagem = "👏 Muito bem! Continue praticando!";
+        classe = "medium";
+      } else {
+        mensagem = "💡 Tente novamente! Você consegue melhorar.";
+        classe = "bad";
+      }
+
+      resultado.textContent = `Você acertou ${acertos} de 5 questões. ${mensagem}`;
+      resultado.className = `result ${classe}`;
+    }
+
+    function salvarPontuacao(pontos) {
+      const historico = JSON.parse(localStorage.getItem("quizPontuacoes") || "[]");
+      historico.push({
+        data: new Date().toLocaleString(),
+        acertos: pontos
+      });
+      localStorage.setItem("quizPontuacoes", JSON.stringify(historico));
+      exibirHistorico();
+    }
+
+    function exibirHistorico() {
+      const historico = JSON.parse(localStorage.getItem("quizPontuacoes") || "[]");
+      const el = document.getElementById("historicoPontuacao");
+
+      if (historico.length === 0) return;
+
+      let html = "<strong>Seu histórico de pontuação:</strong><br>";
+      historico.slice(-5).reverse().forEach(entry => {
+        html += `${entry.data} – ${entry.acertos}/5<br>`;
+      });
+
+      el.innerHTML = html;
+    }
+
+    window.onload = exibirHistorico;
+  </script>
+</body>
+</html>
